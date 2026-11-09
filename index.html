@@ -4,7 +4,7 @@
   &quot;from&quot;: &quot;billing@vendor.example&quot;,
   &quot;replyTo&quot;: &quot;agent@lookalike.example&quot;,
   &quot;body&quot;: &quot;Urgent: verify your password at http://signin.example&quot;
-}</textarea><div class="actions"><button id="run">Run lab</button><button class="secondary" id="reset">Reset fixture</button></div></div><div class="card"><h2>Evidence output</h2><pre id="output" aria-live="polite"></pre><div class="actions"><button class="secondary" id="save">Download JSON</button></div></div></section></main><script>
+}</textarea><div class="actions"><button id="run">Run lab</button><button class="secondary" id="reset">Reset fixture</button><button class="secondary" id="compare">Load comparison</button></div></div><div class="card"><h2>Evidence output</h2><pre id="output" aria-live="polite"></pre><div class="actions"><button class="secondary" id="save">Download JSON</button></div></div></section><section class="card" style="margin-top:18px"><p class="tag">What this demonstrates</p><h2>Distinguish suspicious content from benign business email</h2><p>Compare the mismatched Reply-To and credential lure with an ordinary invoice reminder. The score is a triage aid. Legitimate vendors can use third-party reply domains. In a real investigation, validate trusted mail-gateway authentication results and inspect delivery scope.</p><a href="https://learn.microsoft.com/en-us/security/zero-trust/security-operations-playbook-phishing">Reference guidance</a></section></main><script>
 "use strict";
 function analyze(input) {
   const domain = address => address.toLowerCase().split("@").at(-1);
@@ -34,6 +34,7 @@ function run() {
   document.getElementById("save").disabled = report === undefined;
 }
 document.getElementById("run").onclick = run;
+document.getElementById("compare").onclick = () => { input.value = "{\n  \"from\": \"accounts@vendor.example\",\n  \"replyTo\": \"billing@vendor.example\",\n  \"body\": \"Invoice is available in the usual portal.\"\n}"; run(); };
 document.getElementById("reset").onclick = () => { input.value = fixture; run(); };
 document.getElementById("save").onclick = () => {
   if (report === undefined) return;
