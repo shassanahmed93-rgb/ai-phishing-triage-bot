@@ -1,0 +1,5 @@
+{
+  "from": "billing@vendor.example",
+  "replyTo": "agent@lookalike.example",
+  "body": "Urgent: verify your password at http://signin.example"
+}
